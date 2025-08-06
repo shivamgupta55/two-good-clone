@@ -1,59 +1,72 @@
-let videoCont = document.querySelector(".video-container");
-let playbtn = document.querySelector(".cursor");
+// ======= Video Cursor Animation =======
+const videoCont = document.querySelector(".video-container");
+const playBtn = document.querySelector(".cursor");
 
-videoCont.addEventListener("mouseenter",()=>{
-    gsap.to(playbtn,{
-        opacity:1,
-        scale:1
-    })
-})
+if (videoCont && playBtn) {
+    videoCont.addEventListener("mouseenter", () => {
+        gsap.to(playBtn, { opacity: 1, scale: 1 });
+    });
 
-videoCont.addEventListener("mouseleave",()=>{
-    gsap.to(playbtn,{
-        opacity:0,
-        scale:0
-    })
+    videoCont.addEventListener("mouseleave", () => {
+        gsap.to(playBtn, { opacity: 0, scale: 0 });
+    });
+
+    videoCont.addEventListener("mousemove", (e) => {
+        gsap.to(playBtn, {
+            left: e.x - 120,
+            top: e.y - 120
+        });
+    });
+}
+
+// ======= Heading & Video GSAP Animation =======
+gsap.from(".heading h1", {
+    y: 80,
+    delay: 0.5,
+    duration: 0.8,
+    stagger: 0.3,
+    opacity: 0
 });
 
-videoCont.addEventListener("mousemove",(details)=>{
-    gsap.to(playbtn,{
-        left:details.x-120 ,
-        top:details.y-120
-    })
+gsap.from(".heading .video-container", {
+    scale: 0.9,
+    delay: 1.4,
+    duration: 0.5,
+    opacity: 0
 });
 
-gsap.from(".heading h1",{
-    y:80,
-    delay:0.5,
-    duration:0.8,
-    stagger:0.3,
-    opacity:0
-});
-gsap.from(".heading .video-container",{
-    scale:0.9,
-    delay:1.4,
-    duration:0.5,
-    opacity:0
+// ======= Locomotive Scroll Initialization =======
+const mainEl = document.querySelector('.main');
+if (mainEl) {
+    new LocomotiveScroll({
+        el: mainEl,
+        smooth: true
+    });
+}
 
+// ======= Cursor Yellow Animation =======
+const cursorYellow = document.querySelector(".cursor-yellow");
+document.addEventListener("mousemove", (e) => {
+    if (cursorYellow) {
+        gsap.to(cursorYellow, {
+            left: e.x,
+            top: e.y
+        });
+    }
 });
 
-const scroll = new LocomotiveScroll({
-    el: document.querySelector('.main'),
-    smooth: true
-});
-
-document.addEventListener("mousemove",function(details){
-    gsap.to(".cursor-yellow",{
-        left:details.x,
-        top:details.y
-    })
-});
-let move = document.querySelector(".image-section");
-let yellow = document.querySelector(".cursor-yellow");
-move.addEventListener("mouseenter",function(){
-   gsap.to(yellow,{
-        opacity:1,
-        scale:1
-        
-    })
-})
+const imageSection = document.querySelector(".image-section");
+if (imageSection && cursorYellow) {
+    imageSection.addEventListener("mouseenter", () => {
+        gsap.to(cursorYellow, {
+            opacity: 1,
+            scale: 1
+        });
+    });
+}
+    imageSection.addEventListener("mouseleave", () => {
+        gsap.to(cursorYellow, {
+            opacity: 0,
+            scale: 0
+        });
+    });
